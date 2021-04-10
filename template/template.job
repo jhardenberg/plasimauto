@@ -1,0 +1,27 @@
+#!/bin/bash
+#SBATCH --job-name=<exp>
+#SBATCH --mail-type=ALL
+#SBATCH --mail-user=<email>
+#SBATCH --time=24:00:00
+#SBATCH --output=<logdir>/<exp>_%j.log
+#SBATCH --mem-per-cpu=<mem>
+#SBATCH -n 1
+
+# Plasim ML
+# Obliquity = <obliq> 
+# CO2 = <co2>
+# S0 = <gsol0>
+# TGR = <tgr>
+# HDIFF =  <hdiff>
+# EQ = <eq>
+# AQUA = <aqua>
+# SIC = <sic>
+
+BASEDIR=<basedir>
+cd $BASEDIR
+. ./config.sh
+
+EXP=<exp>
+cd $EXPDIR/$EXP
+
+time ./most_plasim_run
