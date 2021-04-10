@@ -16,6 +16,7 @@
 # EQ = <eq>
 # AQUA = <aqua>
 # SIC = <sic>
+# LSG = <lsg>
 
 BASEDIR=<basedir>
 cd $BASEDIR

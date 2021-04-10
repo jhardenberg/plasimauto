@@ -12,6 +12,9 @@ repl () {
 insert () {
 	sed -i "/^ \/END.*/i $1" $2
 }
+insert2 () {
+        sed -i "1a$1" $2
+}
 head () {
 	sed -i "1c$1" $2
 }
@@ -35,6 +38,7 @@ makejob () {
         repl "<eq>" $EQ $JOBDIR/$EXP.job
         repl "<aqua>" $AQUA $JOBDIR/$EXP.job
         repl "<sic>" $SIC $JOBDIR/$EXP.job
+        repl "<lsg>" $LSG $JOBDIR/$EXP.job
   
         if [ $LAUNCH -eq 1 ]; then 
             sbatch $JOBDIR/$EXP.job
@@ -54,6 +58,7 @@ DIFF=3.0e+04
 EQ=0
 AQUA=0
 SIC=0.
+LSG=0
 
 for ARGUMENT in "$@"
 do
@@ -71,6 +76,7 @@ do
             eq)   EQ=${VALUE} ;;
             aqua) AQUA=${VALUE} ;;
             sic) SIC=${VALUE} ;;
+            lsg) LSG=${VALUE} ;;
             *)
     esac
 done
@@ -78,8 +84,14 @@ done
 cp $SCRIPTDIR/template/most.cfg $SRCDIR
 
 replmost "<obliq>" $OBL
+replmost "<eccen>" $ECC
 replmost "<gsol0>" $GSOL0
 replmost "<co2>" $CO2
+if [ "$LSG" != "0" ]; then
+    replmost "<lsg>" 1
+else
+    replmost "<lsg>" 0
+fi
 
 ./most.x -c most.cfg
 
@@ -99,6 +111,10 @@ if [ "$AQUA" != "0" ]; then
      $SRCDIR/scripts/aqua.sh $TGR $SIC $EQ
 else
      $SRCDIR/scripts/earth.sh $TGR $SIC
+fi
+if [ "$LSG" != "0" ]; then
+     $SRCDIR/scripts/maketopo $LSG > topogr
+     insert2 "naqua=1" input
 fi
 
 makejob $EXP
