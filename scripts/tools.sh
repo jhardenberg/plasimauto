@@ -109,13 +109,13 @@ insert "TGR = $TGR" plasim_namelist
 
 if [ "$AQUA" != "0" ]; then
      $SRCDIR/scripts/aqua.sh $TGR $SIC $EQ
+     if [ "$LSG" != "0" ]; then
+         $SRCDIR/scripts/maketopo $LSG > topogr  # Aquaplanet with fixed depth $LSG
+         insert2 "naqua=1" input  # No friction corrections
+         echo 84 1 > kleiswi  # Initalizes ocean with constant values (5°C, 34.5 psu)
+     fi
 else
      $SRCDIR/scripts/earth.sh $TGR $SIC
-fi
-if [ "$LSG" != "0" ]; then
-     $SRCDIR/scripts/maketopo $LSG > topogr  # Aquaplanet with fixed depth $LSG
-     insert2 "naqua=1" input  # No friction corrections
-     echo 84 1 > kleiswi  # Initalizes ocean with constant values (5°C, 34.5 psu)
 fi
 
 makejob $EXP
