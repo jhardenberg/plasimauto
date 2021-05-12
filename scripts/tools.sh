@@ -1,5 +1,5 @@
 #!/bin/bash
-set -ex
+# set -ex
 
 . scripts/config.sh
 
@@ -25,6 +25,8 @@ makejob () {
         mkdir -p $LOGDIR
 	cp $SCRIPTDIR/template/template.job $JOBDIR/$EXP.job
         repl "<exp>" $EXP $JOBDIR/$EXP.job
+        repl "<res>" $RES $JOBDIR/$EXP.job
+        repl "<nlev>" $NLEV $JOBDIR/$EXP.job
         repl "<email>" $EMAIL $JOBDIR/$EXP.job
         repl "<mem>" $MEMORY $JOBDIR/$EXP.job
         repl "<expdir>" $EXPDIR $JOBDIR/$EXP.job
@@ -59,6 +61,8 @@ EQ=0
 AQUA=0
 SIC=0.
 LSG=0
+RES=t21
+NLEV=10
 
 for ARGUMENT in "$@"
 do
@@ -77,6 +81,8 @@ do
             aqua) AQUA=${VALUE} ;;
             sic) SIC=${VALUE} ;;
             lsg) LSG=${VALUE} ;;
+            nlev) NLEV=${VALUE} ;;
+            res) RES=${VALUE} ;;
             *)
     esac
 done
@@ -92,6 +98,18 @@ if [ "$LSG" != "0" ]; then
 else
     replmost "<lsg>" 0
 fi
+T21=0
+T31=0
+T42=0
+case $RES in
+  t21) T21=1;;
+  t31) T31=1;;
+  t42) T42=1;;
+esac
+replmost "<t21>" $T21
+replmost "<t31>" $T31
+replmost "<t42>" $T42
+replmost "<nlev>" $NLEV
 
 ./most.x -c most.cfg
 

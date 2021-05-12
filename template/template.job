@@ -8,6 +8,9 @@
 #SBATCH -n 1
 
 # Plasim ML
+# Resolution = <res>
+# Vertical levels = <nlev>
+
 # Obliquity = <obliq> 
 # CO2 = <co2>
 # S0 = <gsol0>
