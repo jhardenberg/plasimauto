@@ -18,9 +18,7 @@
 # SIC = <sic>
 # LSG = <lsg>
 
-. <scriptdir>/scripts/config.sh
-
 EXP=<exp>
-cd $EXPDIR/$EXP
+cd <expdir>/$EXP
 
 time ./most_plasim_run

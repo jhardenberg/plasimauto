@@ -27,7 +27,7 @@ makejob () {
         repl "<exp>" $EXP $JOBDIR/$EXP.job
         repl "<email>" $EMAIL $JOBDIR/$EXP.job
         repl "<mem>" $MEMORY $JOBDIR/$EXP.job
-        repl "<scriptdir>" $SCRIPTDIR $JOBDIR/$EXP.job
+        repl "<expdir>" $EXPDIR $JOBDIR/$EXP.job
         repl "<logdir>" $LOGDIR $JOBDIR/$EXP.job
         repl "<obliq>" $OBL $JOBDIR/$EXP.job
         repl "<eccen>" $ECC $JOBDIR/$EXP.job
