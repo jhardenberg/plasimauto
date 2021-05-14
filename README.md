@@ -12,7 +12,8 @@ Postprocessing routines extracting zonal averages and global average timeseries 
 Place these scripts in a directory and edit `scripts/config.sh` accordingly. 
    You will need to set two variables: `$SCRIPTDIR` pointing to the directory where these scripts reside and `$BASEDIR` where the experiments will be performed (could be the same directory)
 
-A sample script to prepare and run some experiments is provided in `runexp.sh`. 
+A sample script to prepare and run some exoplanetary experiments is provided in `examples/testexo.sh`. 
+A sample script illustration how to prepare and run different experiments changing resolution is provided in `examples/testres.sh`. 
 
 ### Initializing PlaSim
 
@@ -20,7 +21,7 @@ The command `setup` in the script will download and configure PlaSim automatical
      setup comp=ifort.wilma
 this will copy from the directory `$SCRIPTDIR/template` the file `most_compiler.ifort.wilma` into `$BASEDIR/src/most_compiler`, customizing the compiler options. If omitted (i.e. just `setup` is used), the default options chosen by PlaSim will be used (they may not be optimal for your machine - the configurations script of PlaSim needs to be updated).
 
-Please notice that once PlaSim has been configured, the `setup` command can be commented/omitted in the script.
+Please notice that once PlaSim has been configured, the `setup` command can be commented/omitted in the script if this is to be run again.
 
 ### Common run parameters
 
@@ -29,12 +30,17 @@ These are a few common parameters which control the runs.
 * `$EMAIL` is an email to be include in the job scripts
 * `$MEMORY` the memory footprint of PlaSim for the job scripts (default is for T21)
 * `$LAUNCH` boolean to decide if the script will also submit the jobs after preparing them. Set to 1 to actually perform an experiment
+* `$EXO` boolean to decide if these are "exoplanetary" runs. When `$EXO` is set PlaSim is initialized with a uniform temperature over the globe and for SST (determined by the `tgr` option - default 288K). Further, according to the `sic` option the oceans may be covered with a sea-ice layer (1m high).
 
 
 ### Specifying an experiment 
 
 Example: `makeexp ees100a45t1 s0=1367.0 obl=0.0 co2=360 tgr=320 aqua=1 eq=45`
 Prepares an experiment with jobid "ees100a45t1", solar constant 1367 W/m2, obliquity 0, CO2 concentration 360 ppm, initial global temperature 320K, for an aquaplanet with an equatorial continent between -45° and 45° in latitude.
+
+Example: `makeexp testres nlev=15 res=t31`
+Prepares a standard experiment with 15 vertical levels at T31 resolution.
+
 The syntax for `makeexp` is:
 
     makeexp jobid <OPTIONS>
@@ -47,8 +53,10 @@ The syntax for `makeexp` is:
     tgr=<tgr>       Initial global temperature in [K] (used for air and mixed layer) (default: 288)
     diff=<diff>     Horizontal diffusion in the mixed layer (default 3e+4)
     sic=<conc>      Set to 1 to cover planet with 1m deep sea-ice layer (default: 0)
-    aqua=<bool>     Set to 1 to make an Aquaplanet (water world) experiment. Can be combined with <eq>.
+    aqua=<bool>     Set to 1 to make an Aquaplanet (water world) experiment. Can be combined with <eq>. If set also `$EXO` is assumed set automatically.
     eq=<lat>        If set and different than 0 will introduce an equatorial continent betwwn latitudes +/-<lat>. Has to be combined with <aqua>.
+    nlev=<nlev>     Sets th number of vertical levels (default 10)
+    res=<res>       Sets horizontal resolution Options: t21, t31, t42, t63 (default t21)
 
 ### Postprocessing
 
