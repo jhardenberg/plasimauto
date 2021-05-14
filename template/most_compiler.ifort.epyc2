@@ -1,8 +1,8 @@
 MOST_F90=ifort
-MOST_F90_OPTS=-O3 -march=core-avx2 -no-prec-div -fma -ftz -fomit-frame-pointer -ipo
+MOST_F90_OPTS=-O3 -march=core-avx2 -no-prec-div -fma -ftz -fomit-frame-pointer 
 MPIMOD=mpimod_stub
 MOST_CC=icc
-MOST_CC_OPTS=-O3 -march=core-avx2  -no-prec-div -fma -ftz -fomit-frame-pointer -ipo
+MOST_CC_OPTS=-O3 -march=core-avx2  -no-prec-div -fma -ftz -fomit-frame-pointer
 MOST_PP=c++  #  /usr/bin/c++
 MOST_AS=as
 LEGMOD=legini

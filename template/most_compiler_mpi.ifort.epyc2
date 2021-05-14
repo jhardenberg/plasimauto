@@ -1,11 +1,11 @@
 MPI_RUN=mpiexec
 MOST_F90=mpif90 -f90=ifort
-MOST_F90_OPTS=-O3 -march=core-avx2 -no-prec-div -fma -ftz -fomit-frame-pointer -ipo
+MOST_F90_OPTS=-O3 -march=core-avx2 -no-prec-div -fma -ftz -fomit-frame-pointer 
 MPIMOD=mpimod
 MOST_CC=mpicc -cc=icc
-MOST_CC_OPTS=-O3 -march=core-avx2 -no-prec-div -fma -ftz -fomit-frame-pointer -ipo
+MOST_CC_OPTS=-O3 -march=core-avx2 -no-prec-div -fma -ftz -fomit-frame-pointer 
 MOST_PP=mpicxx -cxx=icpc
-MOST_PP_OPTS=-O3 -DMPI -march=core-avx2 -no-prec-div -fma -ftz -fomit-frame-pointer -ipo
+MOST_PP_OPTS=-O3 -DMPI -march=core-avx2 -no-prec-div -fma -ftz -fomit-frame-pointer 
 MOST_AS=as
 LEGMOD=legini
 LEGFAST=legfast32.o
