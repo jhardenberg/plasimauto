@@ -26,17 +26,16 @@ Please notice that once PlaSim has been configured, the `setup` command can be c
 ### Common run parameters
 
 These are a few common parameters which control the runs.
-* `$YEARS` is the desired length for each experiment 
-* `$EMAIL` is an email to be include in the job scripts
-* `$MEMORY` the memory footprint of PlaSim for the job scripts (default is for T21)
+* `$YEARS` is the desired length for each experiment (if omitted 10 years are used)
+* `$EMAIL` is an email to be include in the job scripts (if omitted no mail is sent)
+* `$MEMORY` the memory footprint of PlaSim for the job scripts (30M is ok for T21) (if omitted not specified in run script)
 * `$LAUNCH` boolean to decide if the script will also submit the jobs after preparing them. Set to 1 to actually perform an experiment
-* `$EXO` boolean to decide if these are "exoplanetary" runs. When `$EXO` is set PlaSim is initialized with a uniform temperature over the globe and for SST (determined by the `tgr` option - default 288K). Further, according to the `sic` option the oceans may be covered with a sea-ice layer (1m high).
-
+* `$EXO` boolean to decide if these are "exoplanetary" runs. With Plasimauto you can run either 'classical' PlaSim runs or exoplanetary cases. When `$EXO` is set, PlaSim is initialized with a uniform surface temperature over the globe and for SST (determined by the `tgr` option - default 288K). Further, according to the `sic` option the oceans may be covered with a sea-ice layer (1m high). If `$EXO` is not set a classic PlaSim run is performed, without further manipulation of the boundary conditions. By default `$EXO` is not set.
 
 ### Specifying an experiment 
 
 Example: `makeexp ees100a45t1 s0=1367.0 obl=0.0 co2=360 tgr=320 aqua=1 eq=45`
-Prepares an experiment with jobid "ees100a45t1", solar constant 1367 W/m2, obliquity 0, CO2 concentration 360 ppm, initial global temperature 320K, for an aquaplanet with an equatorial continent between -45° and 45° in latitude.
+Prepares an experiment with jobid "ees100a45t1", solar constant 1367 W/m2, obliquity 0, CO2 concentration 360 ppm, initial global temperature 320K, for an aquaplanet with an equatorial continent between -45° and 45° in latitude (Assuming `$EXO` is set).
 
 Example: `makeexp testres nlev=15 res=t31`
 Prepares a standard experiment with 15 vertical levels at T31 resolution.
@@ -57,6 +56,7 @@ The syntax for `makeexp` is:
     eq=<lat>        If set and different than 0 will introduce an equatorial continent betwwn latitudes +/-<lat>. Has to be combined with <aqua>.
     nlev=<nlev>     Sets th number of vertical levels (default 10)
     res=<res>       Sets horizontal resolution Options: t21, t31, t42, t63 (default t21)
+    years=<years>   Overrides "\$YEARS" and sets length of run
 
 ### Postprocessing
 

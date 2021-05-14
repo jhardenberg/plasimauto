@@ -9,6 +9,9 @@ replmost () {
 repl () {
 	sed -i "s%$1%$2%g" $3
 }
+del () {
+	sed -i "/$1/d" $2
+}
 insert () {
 	sed -i "/^ \/END.*/i $1" $2
 }
@@ -23,12 +26,11 @@ makejob () {
 	EXP=$1
         mkdir -p $JOBDIR
         mkdir -p $LOGDIR
+
 	cp $SCRIPTDIR/template/template.job $JOBDIR/$EXP.job
         repl "<exp>" $EXP $JOBDIR/$EXP.job
         repl "<res>" $RES $JOBDIR/$EXP.job
         repl "<nlev>" $NLEV $JOBDIR/$EXP.job
-        repl "<email>" $EMAIL $JOBDIR/$EXP.job
-        repl "<mem>" $MEMORY $JOBDIR/$EXP.job
         repl "<expdir>" $EXPDIR $JOBDIR/$EXP.job
         repl "<logdir>" $LOGDIR $JOBDIR/$EXP.job
         repl "<obliq>" $OBL $JOBDIR/$EXP.job
@@ -41,8 +43,18 @@ makejob () {
         repl "<aqua>" $AQUA $JOBDIR/$EXP.job
         repl "<sic>" $SIC $JOBDIR/$EXP.job
         repl "<lsg>" $LSG $JOBDIR/$EXP.job
+        if [ "$EMAIL" != "" ]; then
+           repl "<email>" $EMAIL $JOBDIR/$EXP.job
+        else
+           del "<email>" $JOBDIR/$EXP.job
+        fi
+        if [ "$MEMORY" != "" ]; then
+           repl "<mem>" $MEMORY $JOBDIR/$EXP.job
+        else
+           del "<mem>" $JOBDIR/$EXP.job
+        fi
   
-        if [ $LAUNCH -eq 1 ]; then 
+        if [ "$LAUNCH" == "1" ]; then 
             sbatch $JOBDIR/$EXP.job
         fi
 }
@@ -83,6 +95,7 @@ do
             lsg) LSG=${VALUE} ;;
             nlev) NLEV=${VALUE} ;;
             res) RES=${VALUE} ;;
+            years) YEARS=${VALUE} ;;
             *)
     esac
 done
@@ -118,10 +131,12 @@ cp -R $SRCDIR/plasim/run/* $EXPDIR/$EXP/
 cd $EXPDIR/$EXP/
 
 # Fix runscript 
-repl YEAR2=10 YEAR2=$YEARS most_plasim_run
+if [ "$YEARS" != "" ]; then
+   repl YEAR2=10 YEAR2=$YEARS most_plasim_run
+fi
 
 insert "TGR = $TGR" plasim_namelist
-if [ "$EXO" != "" ]; then
+if [ "$EXO" != "" ] && [ "$EXO" != "0" ]; then
 # Fix single diffusivity
   repl "NSHDIFF     =     1" "NSHDIFF     =     0" oceanmod_namelist
   repl "HDIFFK      = 1.0e+05" "HDIFFK      = $DIFF" oceanmod_namelist
