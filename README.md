@@ -17,7 +17,7 @@ A sample script illustration how to prepare and run different experiments changi
 
 ### Initializing PlaSim
 
-The command `setup` in the script will download and configure PlaSim automatically in the `$BASEDIR/src" directory. If you need to specify special compiler options for your machine (optional) you can provide them with the optional `comp` option as follows:
+The command `setup` in the script will download and configure PlaSim automatically in the `$BASEDIR/src` directory. If you need to specify special compiler options for your machine (optional) you can provide them with the optional `comp` option as follows:
      setup comp=ifort.wilma
 this will copy from the directory `$SCRIPTDIR/template` the file `most_compiler.ifort.wilma` into `$BASEDIR/src/most_compiler`, customizing the compiler options. If omitted (i.e. just `setup` is used), the default options chosen by PlaSim will be used (they may not be optimal for your machine - the configurations script of PlaSim needs to be updated).
 
@@ -34,10 +34,12 @@ These are a few common parameters which control the runs.
 
 ### Specifying an experiment 
 
-Example: `makeexp ees100a45t1 s0=1367.0 obl=0.0 co2=360 tgr=320 aqua=1 eq=45`
-Prepares an experiment with jobid "ees100a45t1", solar constant 1367 W/m2, obliquity 0, CO2 concentration 360 ppm, initial global temperature 320K, for an aquaplanet with an equatorial continent between -45° and 45° in latitude (Assuming `$EXO` is set).
+Example: `makeexp ees100a45t1 s0=1367.0 obl=0.0 co2=360 tgr=320 aqua=1 eq=45 lsg=1`
+
+Prepares an experiment with jobid "ees100a45t1", solar constant 1367 W/m2, obliquity 0, CO2 concentration 360 ppm, initial global temperature 320K, for an aquaplanet with an equatorial continent between -45° and 45° in latitude and using an LSG ocean (Assuming `$EXO` is set).
 
 Example: `makeexp testres nlev=15 res=t31`
+
 Prepares a standard experiment with 15 vertical levels at T31 resolution.
 
 The syntax for `makeexp` is:
@@ -56,13 +58,16 @@ The syntax for `makeexp` is:
     eq=<lat>        If set and different than 0 will introduce an equatorial continent betwwn latitudes +/-<lat>. Has to be combined with <aqua>.
     nlev=<nlev>     Sets th number of vertical levels (default 10)
     res=<res>       Sets horizontal resolution Options: t21, t31, t42, t63 (default t21)
-    years=<years>   Overrides "\$YEARS" and sets length of run
+    years=<years>   Overrides `$YEARS` and sets length of run
 
 ### Postprocessing
 
-The script `post.sh` will perform postprocessing of selected experiments. The new command `post` has the following syntax: 
+The script `examples/testpost.sh` will perform postprocessing of selected experiments. The new command `post` has the following syntax: 
+
     post jobid var year1/year2
+
     Where:
+
     jobid    is the jobid of the experiment
     var      is the variable name (al and pr are derived automatically)
     year1 and year2 specify the period in which to perform the analysis  
