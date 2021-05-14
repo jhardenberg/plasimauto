@@ -4,7 +4,7 @@
 
 # This sets up all the needed functions
 # Remember to set the current path in the config.sh script first
-. ../scripts/tools.sh
+. ./scripts/tools.sh
 
 # The following downloads and configures Plasim automatically.
 # Needed only once, can be commented for later runs

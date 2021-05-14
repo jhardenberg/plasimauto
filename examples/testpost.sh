@@ -1,6 +1,6 @@
 #!/bin/bash
 #set -ex
-. ../scripts/posttools.sh
+. ./scripts/posttools.sh
 
 cd $EXPDIR
 for fn in ees100a00t?h???
