@@ -120,20 +120,22 @@ cd $EXPDIR/$EXP/
 # Fix runscript 
 repl YEAR2=10 YEAR2=$YEARS most_plasim_run
 
-# Fix single diffusivity
-repl "NSHDIFF     =     1" "NSHDIFF     =     0" oceanmod_namelist
-repl "HDIFFK      = 1.0e+05" "HDIFFK      = $DIFF" oceanmod_namelist
 insert "TGR = $TGR" plasim_namelist
+if [ "$EXO" != "" ]; then
+# Fix single diffusivity
+  repl "NSHDIFF     =     1" "NSHDIFF     =     0" oceanmod_namelist
+  repl "HDIFFK      = 1.0e+05" "HDIFFK      = $DIFF" oceanmod_namelist
 
-if [ "$AQUA" != "0" ]; then
+  if [ "$AQUA" != "0" ]; then
      $SRCDIR/scripts/aqua.sh $TGR $SIC $EQ
      if [ "$LSG" != "0" ]; then
          $SRCDIR/scripts/maketopo $LSG > topogr  # Aquaplanet with fixed depth $LSG
          insert2 "naqua=1" input  # No friction corrections
          echo 84 1 > kleiswi  # Initalizes ocean with constant values (5°C, 34.5 psu)
      fi
-else
+  else
      $SRCDIR/scripts/earth.sh $TGR $SIC
+  fi
 fi
 
 makejob $EXP
