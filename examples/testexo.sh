@@ -1,8 +1,10 @@
 #!/bin/bash
-set -ex
+
+# Example script preparing a large number of exoplanetary runs
+
 # This sets up all the needed functions
 # Remember to set the current path in the config.sh script first
-. scripts/tools.sh
+. ../scripts/tools.sh
 
 # The following downloads and configures Plasim automatically.
 # Needed only once, can be commented for later runs
@@ -16,6 +18,7 @@ YEARS=60
 EMAIL=jost.hardenberg@polito.it
 MEMORY=30M
 LAUNCH=0
+EXO=1
 
 makeexp ees100e00t0 s0=1367.0 obl=0.0 co2=360 tgr=220 
 makeexp ees100a00t0 s0=1367.0 obl=0.0 co2=360 tgr=220 aqua=1 
