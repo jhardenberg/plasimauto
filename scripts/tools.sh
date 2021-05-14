@@ -43,6 +43,7 @@ makejob () {
         repl "<aqua>" $AQUA $JOBDIR/$EXP.job
         repl "<sic>" $SIC $JOBDIR/$EXP.job
         repl "<lsg>" $LSG $JOBDIR/$EXP.job
+        repl "<ncores>" $NCPU $JOBDIR/$EXP.job
         if [ "$EMAIL" != "" ]; then
            repl "<email>" $EMAIL $JOBDIR/$EXP.job
         else
@@ -75,6 +76,7 @@ SIC=0.
 LSG=0
 RES=t21
 NLEV=10
+NCPU=1
 
 for ARGUMENT in "$@"
 do
@@ -96,6 +98,8 @@ do
             nlev) NLEV=${VALUE} ;;
             res) RES=${VALUE} ;;
             years) YEARS=${VALUE} ;;
+            ncores) NCPU=${VALUE} ;;
+            ncpu) NCPU=${VALUE} ;;
             *)
     esac
 done
@@ -123,6 +127,7 @@ replmost "<t21>" $T21
 replmost "<t31>" $T31
 replmost "<t42>" $T42
 replmost "<nlev>" $NLEV
+replmost "<ncores>" $NCPU
 
 ./most.x -c most.cfg
 
@@ -178,6 +183,7 @@ cd $SRCDIR
 ./configure.sh
 if [ -n "$COMP" ]; then
    cp $SCRIPTDIR/template/most_compiler.$COMP most_compiler  
+   cp $SCRIPTDIR/template/most_compiler_mpi.$COMP most_compiler_mpi
 fi
 head "DIR=$SRCDIR/scripts" $SRCDIR/scripts/aqua.sh
 head "DIR=$SRCDIR/scripts" $SRCDIR/scripts/earth.sh

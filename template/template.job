@@ -5,7 +5,7 @@
 #SBATCH --time=24:00:00
 #SBATCH --output=<logdir>/<exp>_%j.log
 #SBATCH --mem-per-cpu=<mem>
-#SBATCH -n 1
+#SBATCH -n <ncores>
 
 # Plasim ML
 # Resolution = <res>

@@ -15,6 +15,8 @@ Place these scripts in a directory and edit `scripts/config.sh` accordingly.
 A sample script to prepare and run some exoplanetary experiments is provided in `examples/testexo.sh`. 
 A sample script illustration how to prepare and run different experiments changing resolution is provided in `examples/testres.sh`. 
 
+Please check also the files in the `template` directory. Check compiler options (in case you can create a new file with compiler options for you rmachine) and check the template.job script `template.job`.
+
 ### Initializing PlaSim
 
 The command `setup` in the script will download and configure PlaSim automatically in the `$BASEDIR/src` directory. If you need to specify special compiler options for your machine (optional) you can provide them with the optional `comp` option as follows:
@@ -58,6 +60,8 @@ The syntax for `makeexp` is:
     eq=<lat>        If set and different than 0 will introduce an equatorial continent betwwn latitudes +/-<lat>. Has to be combined with <aqua>.
     nlev=<nlev>     Sets th number of vertical levels (default 10)
     res=<res>       Sets horizontal resolution Options: t21, t31, t42, t63 (default t21)
+    ncores=<ncpu>
+    ncpu=<ncpu>     Activates parallelism with <ncpu> cores
     years=<years>   Overrides `$YEARS` and sets length of run
 
 ### Postprocessing
