@@ -13,17 +13,18 @@
 
 DIR=$(pwd)
 
-setup comp=ifort.epyc2 
+#setup comp=ifort.epyc2 
 
 # Common run parameters
 YEARS=60
 EMAIL=jost.hardenberg@polito.it
 MEMORY=30M
-LAUNCH=0
+LAUNCH=1
 #EXO=1
+SRADIR=/work/users/jost/pa/sra
 
 # Perform a single experiment
-makeexp t000 param=$DIR/testpar.txt verbose=1
+#makeexp t000 param=$DIR/testpar.txt verbose=1
 
 # Perform a series of experiments with parameters from a table
 cd $DIR
@@ -41,7 +42,7 @@ while read line; do
          echo ${par[$i]} ${nl[$i]} ${val[$(( i + 1 ))]} >> $DIR/par.txt
       done
       exp=${val[0]}
-      makeexp $exp param=$DIR/par.txt verbose=1
+      makeexp $exp param=$DIR/par.txt verbose=1 set=NICE/icemod/0 set=NOCEAN/oceanmod/0 copy=$SRADIR 
    fi
    n=$(( $n + 1 ))
 done < $DIR/partable.txt

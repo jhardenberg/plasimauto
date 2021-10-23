@@ -79,6 +79,7 @@ NLEV=10
 NCPU=1
 PARAM=""
 SET=""
+COPY=""
 VERBOSE=0
 
 for ARGUMENT in "$@"
@@ -105,6 +106,7 @@ do
             ncpu) NCPU=${VALUE} ;;
             param) PARAM=${VALUE} ;;
             set) SET=$(echo $SET ${VALUE}) ;;
+            copy) COPY=${VALUE} ;;
             verbose) VERBOSE=${VALUE} ;;
             *)
     esac
@@ -173,6 +175,10 @@ if [ "$SET" != "" ]; then
     [ $VERBOSE = 1 ] && echo "Experiment $EXP Substituted parameter $par in namelist $nl with value $val"
     insert " $par = $val" ${nl}_namelist
    done
+fi
+
+if [ "$COPY" != "" ]; then
+   cp $COPY/* .
 fi
 
 if [ "$PARAM" != "" ]; then
