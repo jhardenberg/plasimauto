@@ -1,15 +1,29 @@
 #!/bin/bash
 #set -ex
+
+# Complex example using the "post" command to extract a table of fluxes
+
 . ./scripts/posttools.sh
 
-cd $EXPDIR
-for fn in ees100a00t?h???
-do
-    echo Postprocessing $fn
-    post $fn tas 31/60
-    post $fn sic 31/60
-#    post $fn sit 31/60
-    post $fn al 31/60
-    post $fn pr 31/60
-done
+LC_NUMERIC="en_US.UTF-8"
 
+y1=31
+y2=40
+DIR=$(pwd)
+OUTFILE=$DIR/post.txt
+VARS="rls rss hfls hfss ssru stru rst net"
+
+echo "#EXP $VARS" > $OUTFILE
+
+cd $EXPDIR
+for fn in h0??
+do
+    printf "%s " $fn >> $OUTFILE
+    for var in $VARS
+    do
+       echo Postprocessing $fn $var
+       post $fn $var $y1/$y2
+       printf "%f " $(cat ${fn}_${var}_fld_clim.txt) >> $OUTFILE
+    done
+    printf "\n" >> $OUTFILE
+done
