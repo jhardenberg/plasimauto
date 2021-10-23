@@ -77,6 +77,8 @@ LSG=0
 RES=t21
 NLEV=10
 NCPU=1
+PARAM=""
+VERBOSE=0
 
 for ARGUMENT in "$@"
 do
@@ -100,6 +102,8 @@ do
             years) YEARS=${VALUE} ;;
             ncores) NCPU=${VALUE} ;;
             ncpu) NCPU=${VALUE} ;;
+            param) PARAM=${VALUE} ;;
+            verbose) VERBOSE=${VALUE} ;;
             *)
     esac
 done
@@ -156,6 +160,27 @@ if [ "$EXO" != "" ] && [ "$EXO" != "0" ]; then
   else
      $SRCDIR/scripts/earth.sh $TGR $SIC
   fi
+fi
+
+if [ "$PARAM" != "" ]; then
+   cp $PARAM $EXPDIR/
+# Special interpretation of TFRC1 and TFRC2
+   TFRC1=1728000
+   TFRC2=8640000
+   while read line; do
+# reading each line
+     a=( $line )
+     par="${a[0]}"
+     nl="${a[1]}"
+     val="${a[2]}"
+     [ $VERBOSE = 1 ] && echo "Experiment $EXP Substituted parameter $par in namelist $nl with value $val"
+     if [ $par != TFRC1 ] && [ $par != TFRC2 ]; then
+        insert " $par = $val" ${nl}_namelist
+     fi
+     [ $par = TFRC1 ] && TFRC1=$val
+     [ $par = TFRC2 ] && TFRC2=$val
+   done < $PARAM
+   insert " TFRC = $TFRC1, $TFRC2" plasim_namelist
 fi
 
 makejob $EXP
