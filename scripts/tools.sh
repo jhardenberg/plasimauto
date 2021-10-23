@@ -78,6 +78,7 @@ RES=t21
 NLEV=10
 NCPU=1
 PARAM=""
+SET=""
 VERBOSE=0
 
 for ARGUMENT in "$@"
@@ -103,6 +104,7 @@ do
             ncores) NCPU=${VALUE} ;;
             ncpu) NCPU=${VALUE} ;;
             param) PARAM=${VALUE} ;;
+            set) SET=$(echo $SET ${VALUE}) ;;
             verbose) VERBOSE=${VALUE} ;;
             *)
     esac
@@ -160,6 +162,17 @@ if [ "$EXO" != "" ] && [ "$EXO" != "0" ]; then
   else
      $SRCDIR/scripts/earth.sh $TGR $SIC
   fi
+fi
+
+if [ "$SET" != "" ]; then
+   s=( $SET )
+   for (( i=0; i<${#s[@]}; i++)); do
+    par=$( echo ${s[$i]}|cut -d'/' -f 1 )
+    nl=$( echo ${s[$i]}|cut -d'/' -f 2 )
+    val=$( echo ${s[$i]}|cut -d'/' -f 3 )
+    [ $VERBOSE = 1 ] && echo "Experiment $EXP Substituted parameter $par in namelist $nl with value $val"
+    insert " $par = $val" ${nl}_namelist
+   done
 fi
 
 if [ "$PARAM" != "" ]; then

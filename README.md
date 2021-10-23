@@ -68,6 +68,9 @@ The syntax for `makeexp` is:
                     Example: 
                     TDISSQ plasim 0.015
                     ACLLWR radmod 0.1
+    set=<par>/<nl>/<val> Sets parameter <par> to <val> in namelist <nl>. 
+                         can be specified multiple times. Example:
+                         makeexp t001 set=N_RUN_YEARS/plasim/0 set=N_RUN_MONTH/plasim/1 verbose=1
 
 ### Running multiple experiments specified in a table
 
