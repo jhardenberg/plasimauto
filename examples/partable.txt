@@ -1,0 +1,4 @@
+	TH2OC	ACLLWR	TSWR1	TSWR2	TSWR3	TFRC2	VDIFF_D	TFRC1	TDISSD	TDISSZ	TDISST	TPOFMT	VDIFF_LAMM 	VDIFF_B	VDIFF_C	TDISSQ
+	radmod	radmod 	radmod 	radmod 	radmod 	plasim 	fluxmod	plasim 	plasim 	plasim 	plasim 	radmod 	fluxmod	fluxmod	fluxmod	plasim
+e000	0.014	0.1	0.077	0.065	0.0055	8640000	5	1728000	2	11	56	1	160	5	5 	1
+e001	0.015	0.1	0.078	0.065	0.0055	8640000	5	1728000	2	11	56	1	160	5	5 	1
