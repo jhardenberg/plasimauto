@@ -63,6 +63,15 @@ The syntax for `makeexp` is:
     ncores=<ncpu>
     ncpu=<ncpu>     Activates parallelism with <ncpu> cores
     years=<years>   Overrides `$YEARS` and sets length of run
+    param=<file>    Read parameters from an external file in the format:
+                    PARAM NAMELIST value
+                    Example: 
+                    TDISSQ plasim 0.015
+                    ACLLWR radmod 0.1
+
+### Running multiple experiments specified in a table
+
+The example `examples/testtable.sh` shows how the `param` option can be used to read an external table specifying experiments names and parameters and to prepare the corresponding experiments.
 
 ### Postprocessing
 
