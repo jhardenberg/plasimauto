@@ -11,7 +11,9 @@
 # The optional argument comp=string will copy customized compiler options 
 # from template/most_compiler.string
 
+DIR=$(pwd)
 #setup comp=ifort.epyc2 
+cd $DIR
 
 # Common run parameters
 YEARS=60
@@ -20,5 +22,10 @@ MEMORY=30M
 LAUNCH=0
 #EXO=1
 
-DIR=$(pwd)
+# This is classic run with slab ocean
 makeexp t000 param=$DIR/testpar.txt verbose=1
+
+# An AMIP run with specified sra files copied from a directory
+SRADIR=/home/jost/work/pa/sra
+makeexp t001 param=$DIR/testpar.txt verbose=1 set=NICE/icemod/0 set=NOCEAN/oceanmod/0 copy=$SRADIR
+
