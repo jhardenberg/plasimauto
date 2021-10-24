@@ -7,7 +7,7 @@ replmost () {
 	sed -i "s%$1%$2%g" $SRCDIR/most.cfg
 }
 repl () {
-        [ $VERBOSE = 1 ] && echo "Setting $1 to $2 in $3"
+        [ "$VERBOSE" = "1" ] && echo "Setting $1 to $2 in $3"
 	sed -i "s%$1%$2%g" $3
 }
 del () {
@@ -64,31 +64,31 @@ makejob () {
 makeexp() {
 cd $SRCDIR
 
-EXP=$1
-GSOL0=1367.0
-ECC=1.6715e-02
-OBL=23.44
-CO2=360
-TGR=288
-DIFF=3.0e+04
-EQ=0
-AQUA=0
-SIC=0.
-LSG=0
-RES=t21
-NLEV=10
-NCPU=1
-PARAM=""
-SET=""
-COPY=""
-VERBOSE=0
-OCEAN=1
-ICE=1
+local EXP=$1
+local GSOL0=1367.0
+local ECC=1.6715e-02
+local OBL=23.44
+local CO2=360
+local TGR=288
+local DIFF=3.0e+04
+local EQ=0
+local AQUA=0
+local SIC=0.
+local LSG=0
+local RES=t21
+local NLEV=10
+local NCPU=1
+local PARAM=""
+local SET=""
+local COPY=""
+local VERBOSE=0
+local OCEAN=1
+local ICE=1
 
 for ARGUMENT in "$@"
 do
-    KEY=$(echo $ARGUMENT | cut -f1 -d=)
-    VALUE=$(echo $ARGUMENT | cut -f2 -d=)
+    local KEY=$(echo $ARGUMENT | cut -f1 -d=)
+    local VALUE=$(echo $ARGUMENT | cut -f2 -d=)
 
     case "$KEY" in
             obl)    OBL=${VALUE} ;;
@@ -130,9 +130,9 @@ if [ "$LSG" != "0" ]; then
 else
     replmost "<lsg>" 0
 fi
-T21=0
-T31=0
-T42=0
+local T21=0
+local T31=0
+local T42=0
 case $RES in
   t21) T21=1;;
   t31) T31=1;;
@@ -176,9 +176,9 @@ fi
 if [ "$SET" != "" ]; then
    s=( $SET )
    for (( i=0; i<${#s[@]}; i++)); do
-    par=$( echo ${s[$i]}|cut -d'/' -f 1 )
-    nl=$( echo ${s[$i]}|cut -d'/' -f 2 )
-    val=$( echo ${s[$i]}|cut -d'/' -f 3 )
+    local par=$( echo ${s[$i]}|cut -d'/' -f 1 )
+    local nl=$( echo ${s[$i]}|cut -d'/' -f 2 )
+    local val=$( echo ${s[$i]}|cut -d'/' -f 3 )
     [ $VERBOSE = 1 ] && echo "Experiment $EXP Substituted parameter $par in namelist $nl with value $val"
     insert " $par = $val" ${nl}_namelist
    done
@@ -195,10 +195,10 @@ if [ "$PARAM" != "" ]; then
    TFRC2=8640000
    while read line; do
 # reading each line
-     a=( $line )
-     par="${a[0]}"
-     nl="${a[1]}"
-     val="${a[2]}"
+     local a=( $line )
+     local par="${a[0]}"
+     local nl="${a[1]}"
+     local val="${a[2]}"
      [ $VERBOSE = 1 ] && echo "Experiment $EXP Substituted parameter $par in namelist $nl with value $val"
      if [ $par != TFRC1 ] && [ $par != TFRC2 ]; then
         insert " $par = $val" ${nl}_namelist
@@ -207,6 +207,7 @@ if [ "$PARAM" != "" ]; then
      [ $par = TFRC2 ] && TFRC2=$val
    done < $PARAM
    insert " TFRC = $TFRC1, $TFRC2" plasim_namelist
+   cp $PARAM parameters.txt
 fi
 
 makejob $EXP
@@ -214,11 +215,11 @@ makejob $EXP
 
 setup () {
 
-COMP=""
+local COMP=""
 for ARGUMENT in "$@"
 do
-    KEY=$(echo $ARGUMENT | cut -f1 -d=)
-    VALUE=$(echo $ARGUMENT | cut -f2 -d=)
+    local KEY=$(echo $ARGUMENT | cut -f1 -d=)
+    local VALUE=$(echo $ARGUMENT | cut -f2 -d=)
 
     case "$KEY" in
             comp)    COMP=${VALUE} ;;
