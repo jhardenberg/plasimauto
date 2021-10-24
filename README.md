@@ -72,6 +72,8 @@ The syntax for `makeexp` is:
                          can be specified multiple times. Example:
                          makeexp t001 set=N_RUN_YEARS/plasim/0 set=N_RUN_MONTH/plasim/1 verbose=1
     copy=<dir>      Copy all files from directory <dir> into run directory (can be used to set *sra file, change run script etc)
+    ocean=<flag>    Activate (<flag=1> / defult) or deactivate (<flag>=0) slab ocean model
+    ice=<flag>    Activate (<flag=1> / defult) or deactivate (<flag>=0) sea ice model
 
 ### Running multiple experiments specified in a table
 

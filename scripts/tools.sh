@@ -7,6 +7,7 @@ replmost () {
 	sed -i "s%$1%$2%g" $SRCDIR/most.cfg
 }
 repl () {
+        [ $VERBOSE = 1 ] && echo "Setting $1 to $2 in $3"
 	sed -i "s%$1%$2%g" $3
 }
 del () {
@@ -81,6 +82,8 @@ PARAM=""
 SET=""
 COPY=""
 VERBOSE=0
+OCEAN=1
+ICE=1
 
 for ARGUMENT in "$@"
 do
@@ -108,12 +111,16 @@ do
             set) SET=$(echo $SET ${VALUE}) ;;
             copy) COPY=${VALUE} ;;
             verbose) VERBOSE=${VALUE} ;;
+            ocean) OCEAN=${VALUE} ;;
+            ice) ICE=${VALUE} ;;
             *)
     esac
 done
 
 cp $SCRIPTDIR/template/most.cfg $SRCDIR
 
+replmost "<ice>" $ICE
+replmost "<ocean>" $OCEAN
 replmost "<obliq>" $OBL
 replmost "<eccen>" $ECC
 replmost "<gsol0>" $GSOL0

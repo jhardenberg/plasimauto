@@ -27,5 +27,5 @@ makeexp t000 param=$DIR/testpar.txt verbose=1
 
 # An AMIP run with specified sra files copied from a directory
 SRADIR=/home/jost/work/pa/sra
-makeexp t001 param=$DIR/testpar.txt verbose=1 set=NICE/icemod/0 set=NOCEAN/oceanmod/0 copy=$SRADIR
+makeexp t001 param=$DIR/testpar.txt verbose=1 ice=0 ocean=0 copy=$SRADIR
 
