@@ -6,11 +6,11 @@ TSWR3		radmod 	0.0055
 TFRC2		plasim 	8640000
 VDIFF_D		fluxmod 5
 TFRC1		plasim 	1728000
-TDISSD		plasim 	2
-TDISSZ		plasim 	11
-TDISST		plasim 	56
+TDISSD		plasim 	10*2
+TDISSZ		plasim 	10*11
+TDISST		plasim 	10*56
 TPOFMT		radmod 	1
 VDIFF_LAMM 	fluxmod 160
 VDIFF_B		fluxmod 5
 VDIFF_C		fluxmod 5 
-TDISSQ		plasim  1
+TDISSQ		plasim  10*1
