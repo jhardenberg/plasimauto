@@ -24,6 +24,7 @@ head () {
 }
 
 makejob () {
+
 	EXP=$1
         mkdir -p $JOBDIR
         mkdir -p $LOGDIR
@@ -62,6 +63,41 @@ makejob () {
 }
 
 makeexp() {
+   if [ $# -lt 1 ]; then
+cat << EOT
+Usage: makeexp jobid <OPTIONS>
+
+OPTIONS:
+
+obl=<obliquity> Sets obliquity
+co2=<co2>       Sets global GHG concentrations for CO2 in [ppm] (default: 360)
+s0=<s0>
+gsol0=<s0>      Set the solar constant in [W/m2] (default: 1367)
+ecc=<ecc>       Sets eccentricity (default: 1.6715e-02)
+tgr=<tgr>       Initial global temperature in [K] (used for air and mixed layer) (default: 288)
+diff=<diff>     Horizontal diffusion in the mixed layer (default 3e+4)
+sic=<conc>      Set to 1 to cover planet with 1m deep sea-ice layer (default: 0)
+aqua=<bool>     Set to 1 to make an Aquaplanet (water world) experiment. Can be combined with <eq>. If set also `$EXO` is assumed set automatically.
+eq=<lat>        If set and different than 0 will introduce an equatorial continent betwwn latitudes +/-<lat>. Has to be combined with <aqua>.
+nlev=<nlev>     Sets th number of vertical levels (default 10)
+res=<res>       Sets horizontal resolution Options: t21, t31, t42, t63 (default t21)
+ncores=<ncpu>
+ncpu=<ncpu>     Activates parallelism with <ncpu> cores
+years=<years>   Overrides `$YEARS` and sets length of run
+param=<file>    Read parameters from an external file in the format:
+                PARAM NAMELIST value
+                Example: 
+                TDISSQ plasim 0.015
+                ACLLWR radmod 0.1
+set=<par>/<nl>/<val> Sets parameter <par> to <val> in namelist <nl>. 
+                     can be specified multiple times. Example:
+                     makeexp t001 set=N_RUN_YEARS/plasim/0 set=N_RUN_MONTH/plasim/1 verbose=1
+copy=<dir>      Copy all files from directory <dir> into run directory (can be used to set *sra file, change run script etc)
+ocean=<flag>    Activate (<flag=1> / defult) or deactivate (<flag>=0) slab ocean model
+ice=<flag>      Activate (<flag=1> / defult) or deactivate (<flag>=0) sea ice model
+EOT
+    return
+fi
 cd $SRCDIR
 
 local EXP=$1
