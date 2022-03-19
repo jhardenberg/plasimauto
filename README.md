@@ -1,3 +1,4 @@
+![stand with Ukraine](https://badgen.net/badge/stand%20with/UKRAINE/?color=0057B8&labelColor=FFD700)
 # PlasimAUTO 0.1
 ## Scripts for automatic experiment preparation and execution for the PlaSim model on machines with a SLURM job management system
 
