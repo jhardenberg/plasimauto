@@ -252,6 +252,7 @@ makejob $EXP
 setup () {
 
 local COMP=""
+local BRANCH="master"
 for ARGUMENT in "$@"
 do
     local KEY=$(echo $ARGUMENT | cut -f1 -d=)
@@ -259,6 +260,7 @@ do
 
     case "$KEY" in
             comp)    COMP=${VALUE} ;;
+            branch)  BRANCH=${VALUE} ;;
             *)
     esac
 done
@@ -268,6 +270,7 @@ mkdir -p $BASEDIR
 cd $BASEDIR
 git clone https://github.com/jhardenberg/PLASIM.git $SRCDIR
 cd $SRCDIR
+git checkout branch
 ./configure.sh
 if [ -n "$COMP" ]; then
    cp $SCRIPTDIR/template/most_compiler.$COMP most_compiler  
