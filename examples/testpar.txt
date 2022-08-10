@@ -1,0 +1,16 @@
+TH2OC		radmod 	0.014
+ACLLWR		radmod 	0.1
+TSWR1		radmod 	0.077
+TSWR2		radmod 	0.065
+TSWR3		radmod 	0.0055
+TFRC2		plasim 	8640000
+VDIFF_D		fluxmod 5
+TFRC1		plasim 	1728000
+TDISSD		plasim 	10*0.2
+TDISSZ		plasim 	10*1.1
+TDISST		plasim 	10*5.6
+TPOFMT		radmod 	1
+VDIFF_LAMM 	fluxmod 160
+VDIFF_B		fluxmod 5
+VDIFF_C		fluxmod 5 
+TDISSQ		plasim  10*0.1

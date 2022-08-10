@@ -1,3 +1,4 @@
+![stand with Ukraine](https://badgen.net/badge/stand%20with/UKRAINE/?color=0057B8&labelColor=FFD700)
 # PlasimAUTO 0.1
 ## Scripts for automatic experiment preparation and execution for the PlaSim model on machines with a SLURM job management system
 
@@ -63,6 +64,21 @@ The syntax for `makeexp` is:
     ncores=<ncpu>
     ncpu=<ncpu>     Activates parallelism with <ncpu> cores
     years=<years>   Overrides `$YEARS` and sets length of run
+    param=<file>    Read parameters from an external file in the format:
+                    PARAM NAMELIST value
+                    Example: 
+                    TDISSQ plasim 0.015
+                    ACLLWR radmod 0.1
+    set=<par>/<nl>/<val> Sets parameter <par> to <val> in namelist <nl>. 
+                         can be specified multiple times. Example:
+                         makeexp t001 set=N_RUN_YEARS/plasim/0 set=N_RUN_MONTH/plasim/1 verbose=1
+    copy=<dir>      Copy all files from directory <dir> into run directory (can be used to set *sra file, change run script etc)
+    ocean=<flag>    Activate (<flag=1> / defult) or deactivate (<flag>=0) slab ocean model
+    ice=<flag>    Activate (<flag=1> / defult) or deactivate (<flag>=0) sea ice model
+
+### Running multiple experiments specified in a table
+
+The example `examples/testtable.sh` shows how the `param` option can be used to read an external table specifying experiments names and parameters and to prepare the corresponding experiments.
 
 ### Postprocessing
 

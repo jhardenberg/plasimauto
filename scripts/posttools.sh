@@ -74,18 +74,21 @@ postexec () {
             CALC=-expr,"al=-rsut/(rst-rsut)"
         elif [ "$VAR" = "pr" ]; then
             CALC=-expr,"pr=prc+prl"
+        elif [ "$VAR" = "net" ]; then
+            CALC=-expr,"net=rlut+rst"
         else
             CALC=""
         fi 
         for f in $IDIR/MOST_PLA.*.nc
         do
-          $CDO cat -timmean -zonmean -selname,$VAR $CALC $f temp_zon$$.nc
+          $CDO cat -timmean -zonmean -selname,$VAR $CALC $f ${EXP}_${VAR}_zon.nc
           $CDO cat -timmean -fldmean -selname,$VAR $CALC $f ${EXP}_${VAR}_fld.nc
         done
-        $CDO timmean -selyear,$RANGE temp_zon$$.nc ${EXP}_${VAR}_zon.nc
-        $CDO outputtab,date,lat,value ${EXP}_${VAR}_zon.nc >  ${EXP}_${VAR}_zon.txt
+        $CDO timmean -selyear,$RANGE ${EXP}_${VAR}_zon.nc ${EXP}_${VAR}_zon_clim.nc
+        $CDO timmean -selyear,$RANGE ${EXP}_${VAR}_fld.nc ${EXP}_${VAR}_fld_clim.nc
+        $CDO outputtab,date,lat,value ${EXP}_${VAR}_zon_clim.nc >  ${EXP}_${VAR}_zon_clim.txt
         $CDO outputtab,date,value ${EXP}_${VAR}_fld.nc >  ${EXP}_${VAR}_fld.txt
-        rm temp_zon$$.nc
+        $CDO outputf,"%f",1  ${EXP}_${VAR}_fld_clim.nc >  ${EXP}_${VAR}_fld_clim.txt
 }
 
 
