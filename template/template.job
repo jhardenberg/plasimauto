@@ -2,7 +2,7 @@
 #SBATCH --job-name=<exp>
 #SBATCH --mail-type=ALL
 #SBATCH --mail-user=<email>
-#SBATCH --time=24:00:00
+#SBATCH --time=120:00:00
 #SBATCH --output=<logdir>/<exp>_%j.log
 #SBATCH --mem-per-cpu=<mem>
 #SBATCH -n <ncores>

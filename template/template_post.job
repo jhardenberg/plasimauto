@@ -1,0 +1,13 @@
+#!/bin/bash
+#SBATCH --job-name=<exp>_<var>_post
+#SBATCH --mail-type=ALL
+#SBATCH --mail-user=<email>
+#SBATCH --time=120:00:00
+#SBATCH --output=<logdir>/<exp>_<var>_post_%j.log
+#SBATCH --mem-per-cpu=<mem>
+#SBATCH -n 1
+
+cd <scriptdir>
+. scripts/posttools.sh
+
+postexec <exp> <var> <y1>/<y2>
