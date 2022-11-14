@@ -1,10 +1,10 @@
 #!/bin/bash
 
 # Where are these scripts
-SCRIPTDIR=/work/users/jost/plasimauto
+SCRIPTDIR=/work/users/jost/demo/plasimauto
 
 # Where to run experiments
-BASEDIR=/work/users/jost/plasimauto2
+BASEDIR=/work/users/jost/demo/plasimexp0
 
 # Other dirs - leave as is
 EXPDIR=$BASEDIR/exp

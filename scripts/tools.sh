@@ -270,7 +270,7 @@ mkdir -p $BASEDIR
 cd $BASEDIR
 git clone https://github.com/jhardenberg/PLASIM.git $SRCDIR
 cd $SRCDIR
-git checkout branch
+git checkout $BRANCH
 ./configure.sh
 if [ -n "$COMP" ]; then
    cp $SCRIPTDIR/template/most_compiler.$COMP most_compiler  
