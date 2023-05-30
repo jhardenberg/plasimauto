@@ -95,6 +95,9 @@ set=<par>/<nl>/<val> Sets parameter <par> to <val> in namelist <nl>.
 copy=<dir>      Copy all files from directory <dir> into run directory (can be used to set *sra file, change run script etc)
 ocean=<flag>    Activate (<flag=1> / defult) or deactivate (<flag>=0) slab ocean model
 ice=<flag>      Activate (<flag=1> / defult) or deactivate (<flag>=0) sea ice model
+press=<flag>    Derive surface pressure
+uv=<flag>       Derive ua, va instead of divergence and vorticity
+sp2gp=<flag>    convert spectral to gridpoint
 EOT
     return
 fi
@@ -120,6 +123,9 @@ local COPY=""
 local VERBOSE=0
 local OCEAN=1
 local ICE=1
+local PRESS=0
+local UV=0
+local SP2GP=0
 
 for ARGUMENT in "$@"
 do
@@ -149,6 +155,9 @@ do
             verbose) VERBOSE=${VALUE} ;;
             ocean) OCEAN=${VALUE} ;;
             ice) ICE=${VALUE} ;;
+            press) PRESS=${VALUE} ;;
+            uv) UV=${VALUE} ;;
+            sp2gp) SP2GP=${VALUE} ;;
             *)
     esac
 done
@@ -189,6 +198,15 @@ cd $EXPDIR/$EXP/
 # Fix runscript 
 if [ "$YEARS" != "" ]; then
    repl YEAR2=10 YEAR2=$YEARS most_plasim_run
+fi
+if [ "$PRESS" == "1" ]; then
+   repl "\$average plasim_output" "-p \$average plasim_output" most_plasim_run
+fi
+if [ "$UV" == "1" ]; then
+   repl "\$average plasim_output" "-u \$average plasim_output" most_plasim_run
+fi
+if [ "$SP2GP" == "1" ]; then
+   repl "\$average plasim_output" "-s \$average plasim_output" most_plasim_run
 fi
 
 insert "TGR = $TGR" plasim_namelist
