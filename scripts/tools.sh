@@ -216,14 +216,14 @@ if [ "$EXO" != "" ] && [ "$EXO" != "0" ]; then
   repl "HDIFFK      = 1.0e+05" "HDIFFK      = $DIFF" oceanmod_namelist
 
   if [ "$AQUA" != "0" ]; then
-     $SRCDIR/scripts/aqua.sh $TGR $SIC $EQ
+     $SRCDIR/scripts/aqua.sh -g $RES $TGR $SIC $EQ
      if [ "$LSG" != "0" ]; then
          $SRCDIR/scripts/maketopo $LSG > topogr  # Aquaplanet with fixed depth $LSG
          insert2 "naqua=1" input  # No friction corrections
          echo 84 1 > kleiswi  # Initalizes ocean with constant values (5°C, 34.5 psu)
      fi
   else
-     $SRCDIR/scripts/earth.sh $TGR $SIC
+     $SRCDIR/scripts/earth.sh -g $RES $TGR $SIC
   fi
 fi
 
