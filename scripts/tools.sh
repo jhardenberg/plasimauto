@@ -19,9 +19,6 @@ insert () {
 insert2 () {
         sed -i "1a$1" $2
 }
-head () {
-	sed -i "1c$1" $2
-}
 
 makejob () {
 
@@ -286,7 +283,7 @@ done
 # Prepare code
 mkdir -p $BASEDIR
 cd $BASEDIR
-git clone https://github.com/jhardenberg/PLASIM.git $SRCDIR
+git clone https://github.com/jhardenberg/PLASIM-LSG.git $SRCDIR
 cd $SRCDIR
 git checkout $BRANCH
 ./configure.sh
@@ -294,6 +291,4 @@ if [ -n "$COMP" ]; then
    cp $SCRIPTDIR/template/most_compiler.$COMP most_compiler  
    cp $SCRIPTDIR/template/most_compiler_mpi.$COMP most_compiler_mpi
 fi
-head "DIR=$SRCDIR/scripts" $SRCDIR/scripts/aqua.sh
-head "DIR=$SRCDIR/scripts" $SRCDIR/scripts/earth.sh
 }

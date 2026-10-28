@@ -2,7 +2,7 @@
 # PlasimAUTO 0.1
 ## Scripts for automatic experiment preparation and execution for the PlaSim model on machines with a SLURM job management system
 
-These scripts help to perform ensembles of experiments with the PlaSim model (https://github.com/jhardenberg/PLASIM).
+These scripts help to perform ensembles of experiments with the PlaSim model (https://github.com/jhardenberg/PLASIM-LSG).
 PlaSim is automatically downloaded and configured, initial and boundary conditions are prepared and SLURM job scripts are prepared. Optionally the script also submits the jobs.
 Postprocessing routines extracting zonal averages and global average timeseries are provided (this part will be expanded).
 
