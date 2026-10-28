@@ -20,11 +20,19 @@ Please check also the files in the `template` directory. Check compiler options 
 
 ### Initializing PlaSim
 
-The command `setup` in the script will download and configure PlaSim automatically in the `$BASEDIR/src` directory. If you need to specify special compiler options for your machine (optional) you can provide them with the optional `comp` option as follows:
-     setup comp=ifort.wilma
-this will copy from the directory `$SCRIPTDIR/template` the file `most_compiler.ifort.wilma` into `$BASEDIR/src/most_compiler`, customizing the compiler options. If omitted (i.e. just `setup` is used), the default options chosen by PlaSim will be used (they may not be optimal for your machine - the configurations script of PlaSim needs to be updated).
+The command `setup` in the script will download and configure PlaSim automatically in the `$BASEDIR/src` directory:
+```bash
+setup
+```
+When run without options, PlaSim's `./configure.sh` automatically detects available Fortran and C compilers, host processor architectures (e.g., `-march=native` or `-march=core-avx2`), OpenMP/MPI settings, precision options, and libraries (NetCDF and X11). This automatic configuration is recommended for most environments.
 
-Please notice that once PlaSim has been configured, the `setup` command can be commented/omitted in the script if this is to be run again.
+If you need to supply specialized compiler options for a specific HPC cluster or architecture, you can provide an optional template via the `comp` parameter:
+```bash
+setup comp=ifort.epyc2
+```
+This will copy the files `$SCRIPTDIR/template/most_compiler.<comp>` and `most_compiler_mpi.<comp>` into `$BASEDIR/src/most_compiler` and `most_compiler_mpi`.
+
+Please notice that once PlaSim has been configured, the `setup` command can be commented/omitted in the script for subsequent experiment runs.
 
 ### Common run parameters
 
