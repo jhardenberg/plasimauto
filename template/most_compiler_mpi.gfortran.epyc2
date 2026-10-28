@@ -1,10 +1,10 @@
 MPI_RUN=mpiexec
-MOST_F90=mpif90 -f90=ifort
+MOST_F90=mpif90
 MOST_F90_OPTS=-O3 -march=znver2
 MPIMOD=mpimod
-MOST_CC=mpicc -cc=icc
+MOST_CC=mpicc
 MOST_CC_OPTS=-O3 -I /usr/lib/X11/include -march=znver2
-MOST_PP=mpicxx -cxx=icpc
+MOST_PP=mpicxx
 MOST_PP_OPTS=-O3 -DMPI
 MOST_AS=as
 LEGMOD=legini

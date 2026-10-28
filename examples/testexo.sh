@@ -11,7 +11,8 @@
 # The optional argument comp=string will copy customized compiler options 
 # from template/most_compiler.string
 
-setup comp=ifort.wilma
+setup
+#setup comp=ifort.wilma
 
 # Common run parameters
 YEARS=60

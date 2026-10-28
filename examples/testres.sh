@@ -12,7 +12,8 @@
 # The optional argument comp=string will copy customized compiler options 
 # from template/most_compiler.string
 
-setup comp=ifort.epyc2
+setup
+#setup comp=ifort.epyc2
 
 # Common run parameters
 YEARS=1
